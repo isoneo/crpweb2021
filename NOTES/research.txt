@@ -1,0 +1,2 @@
+# user model
+https://learndjango.com/tutorials/django-best-practices-referencing-user-model

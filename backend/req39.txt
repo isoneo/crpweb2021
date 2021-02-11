@@ -1,0 +1,15 @@
+django
+djangorestframework
+django-filter
+markdown
+pyodbc
+sqlalchemy
+pandas
+django-simple-history
+djangorestframework_simplejwt
+psycopg2
+djoser
+django-cors-headers
+djangorestframework-jwt
+coreapi
+pygments
