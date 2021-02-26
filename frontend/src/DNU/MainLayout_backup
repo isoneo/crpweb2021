@@ -1,0 +1,174 @@
+<template>
+  <q-layout view="lHh lpR fFf">
+    <q-header reveal elevated class="bg-primary text-white" height-hint="98">
+      <q-toolbar>
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="toggleLeftDrawer"
+        />
+
+        <q-toolbar-title> CRPWeb v0.4 </q-toolbar-title>
+
+        <div>Quasar v{{ $q.version }}</div>
+        <q-btn
+          round
+          dense
+          flat
+          color="white"
+          icon="account_box"
+          v-if="isLoggedIn"
+        >
+          <q-menu>
+            <q-list style="min-width: 100px">
+              <EssentialLink
+                v-for="link in accLinks"
+                :key="link.title"
+                v-bind="link"
+              >
+              </EssentialLink>
+              <!-- <messages></messages> -->
+              <q-card class="text-center no-shadow no-border">
+                <q-btn
+                  label="View All"
+                  style="max-width: 120px !important"
+                  flat
+                  dense
+                  class="text-indigo-8"
+                ></q-btn>
+              </q-card>
+            </q-list>
+          </q-menu>
+          <!--            <q-tooltip>Notifications</q-tooltip>-->
+        </q-btn>
+        <q-btn
+          flat
+          round
+          dense
+          icon="fas fa-sign-out-alt"
+          @click="logoutNotify"
+          to="/"
+          v-if="isLoggedIn"
+        />
+      </q-toolbar>
+    </q-header>
+
+    <q-drawer v-model="leftDrawerOpen" show-if-above elevated class="bg-grey-1">
+      <q-list>
+        <q-item-label header class="text-grey-8">
+          Essential Links
+        </q-item-label>
+
+        <EssentialLink
+          v-for="link in essentialLinks"
+          :key="link.title"
+          v-bind="link"
+        />
+      </q-list>
+    </q-drawer>
+
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+  </q-layout>
+</template>
+
+<script>
+import EssentialLink from "components/EssentialLink.vue";
+
+const linksList = [
+  {
+    title: "Dashboard",
+    caption: "Main Page",
+    icon: "home",
+    link: "/",
+  },
+  {
+    title: "Login",
+    caption: "Testing login page",
+    icon: "code",
+    link: "/login",
+  },
+    {
+    title: "Dashboard",
+    caption: "Main Page",
+    icon: "home",
+    link: "/",
+  },
+];
+const account_links = [
+  {
+    title: "View Profile",
+    caption: "Edit / View Profile",
+    icon: "",
+    link: "/user/profile",
+  },
+];
+import { defineComponent, ref, computed, onMounted } from "vue";
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+export default defineComponent({
+  name: "MainLayout",
+
+  components: {
+    EssentialLink,
+  },
+
+  setup() {
+    const store = useStore()
+    const router = useRouter()
+    const leftDrawerOpen = ref(false);
+    const isLoggedIn = computed(() => store.getters.isLoggedIn)
+    onMounted(() => store.dispatch('auth/getInfo'))
+
+    return {
+      essentialLinks: linksList,
+      accLinks: account_links,
+      leftDrawerOpen,
+      toggleLeftDrawer() {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
+      },
+      logoutNotify() {
+        store
+          .dispatch("auth/logout")
+          .then(() => {
+            console.log("Successfully logouted");
+            router.push('/login')
+            // this.$router.push({ name: "login" });
+          })
+          .catch((error) => {
+            console.log("Logut Failed error");
+            console.log(error);
+          });
+      },
+      isLoggedIn,
+      
+    };
+  } // END OF SETUP
+
+  // computed: {
+  //   isLoggedIn() {
+  //     console.log(this.$store.getters.isLoggedIn);
+  //     return this.$store.getters.isLoggedIn;
+  //   },
+  // }, // END OF COMPUTED
+  // methods: {
+  //   logoutNotify() {
+  //     this.$store
+  //       .dispatch("auth/logout")
+  //       .then(() => {
+  //         console.log("Successfully logouted");
+  //         // this.$router.push('/login')
+  //         this.$router.push({ name: "login" });
+  //       })
+  //       .catch((error) => {
+  //         console.log("Logut Failed error");
+  //         console.log(error);
+  //       });
+  //   },
+  // }, // End of Method
+});
+</script>

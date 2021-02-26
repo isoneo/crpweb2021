@@ -18,7 +18,7 @@ class DBRouter(object):
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):
         if app_label == 'core':
-            if model_name in ['Ihs_well','Capex_by_well']:
+            if model_name in ['RS_energy_well_info','RS_energy_well_production']:
                 return False
             elif model_name in ['Cme_settlement_prices']:
                 return False

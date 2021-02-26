@@ -6,7 +6,7 @@ from django.conf import settings
 
 
 class Reftbl_countystate(models.Model):
-    county_state_id = models.CharField(max_length=255, primary_key=True)
+    county_state_id = models.CharField(max_length=255, primary_key=True, db_column ='county_state_id' )
     country = models.CharField(max_length=255, db_index=True)
     state_id = models.CharField(max_length=255)
     county_id = models.CharField(max_length=255)
@@ -35,7 +35,7 @@ class Ref_crcat_list(models.Model):
 
 
 class Src_tbl_deal_seller(LogBaseModel):
-    seller_id = models.AutoField(primary_key=True)
+    seller_id = models.AutoField(primary_key=True, db_column ='seller_id' )
     seller_name = models.CharField(max_length=4000, unique=True)
     company = models.CharField(max_length=255, null=True, blank=True)
     main_contact_person_name = models.CharField(max_length=255, null=True, blank=True)
@@ -57,7 +57,7 @@ class Src_tbl_deal_seller(LogBaseModel):
 
 
 class Src_tbl_deal_status(LogBaseModel):
-    src_tbl_deal_status_id = models.AutoField(primary_key=True)
+    src_tbl_deal_status_id = models.AutoField(primary_key=True, db_column ='src_tbl_deal_status_id' )
     deal_status_order = models.BigIntegerField(default=None, blank=True, null=True)
     deal_status_code = models.CharField(max_length=40, default=None, blank=True, null=True)
     deal_status_text = models.CharField(max_length=80, default=None, blank=True, null=True)
@@ -108,7 +108,7 @@ class Src_tbl_deal_status(LogBaseModel):
 
 
 class Src_tbl_deal_type(LogBaseModel):
-    src_tbl_deal_type_id = models.AutoField(primary_key=True)
+    src_tbl_deal_type_id = models.AutoField(primary_key=True, db_column ='src_tbl_deal_type_id' )
     deal_type = models.CharField(max_length=4000, unique=True)
     deal_type_helper = models.CharField(max_length=255, null=True, blank=True)
 
@@ -120,7 +120,7 @@ class Src_tbl_deal_type(LogBaseModel):
 
 
 class Src_tbl_deal_source(LogBaseModel):
-    src_tbl_deal_source_id = models.AutoField(primary_key=True)
+    src_tbl_deal_source_id = models.AutoField(primary_key=True, db_column ='src_tbl_deal_source_id' )
     deal_source = models.CharField(max_length=4000, unique=True)
     deal_source_helper = models.CharField(max_length=255, null=True, blank=True)
 
@@ -132,7 +132,7 @@ class Src_tbl_deal_source(LogBaseModel):
 
 
 class Src_int_type(models.Model):
-    ref_int_type_id = models.AutoField(primary_key=True)
+    ref_int_type_id = models.AutoField(primary_key=True, db_column ='ref_int_type_id' )
     int_type_name = models.CharField(max_length=255, unique=True)
     int_type_name_descrip = models.CharField(max_length=255, null=True, blank=True)
 
@@ -144,7 +144,7 @@ class Src_int_type(models.Model):
 
 
 class Src_fund_list(models.Model):
-    ref_fund_list_id = models.AutoField(primary_key=True)
+    ref_fund_list_id = models.AutoField(primary_key=True, db_column ='ref_fund_list_id' )
     fund_name = models.CharField(max_length=255, unique=True)
     fund_name_descrip = models.CharField(max_length=255, null=True, blank=True)
 
@@ -155,7 +155,7 @@ class Src_fund_list(models.Model):
         db_table = 'src_fund_list'
 
 class Src_department_list(models.Model):
-    ref_dept_list_id = models.AutoField(primary_key=True)
+    ref_dept_list_id = models.AutoField(primary_key=True, db_column ='ref_dept_list_id' )
     dept_name = models.CharField(max_length=255, unique=True)
     dept_name_descrip = models.CharField(max_length=255, null=True, blank=True)
 
@@ -166,7 +166,7 @@ class Src_department_list(models.Model):
         db_table = 'src_dept_list'
 
 class Src_payout_type(models.Model):
-    ref_payout_type_id = models.AutoField(primary_key=True)
+    ref_payout_type_id = models.AutoField(primary_key=True, db_column ='ref_payout_type_id' )
     payout_type = models.CharField(max_length=255, unique=True)
     payout_type_descrip = models.CharField(max_length=255, null=True, blank=True)
 
@@ -180,7 +180,7 @@ class Src_payout_type(models.Model):
 
 # well AFE type
 class Src_afe_type(models.Model):
-    ref_afe_type_id = models.AutoField(primary_key=True)
+    ref_afe_type_id = models.AutoField(primary_key=True, db_column ='ref_afe_type_id' )
     afe_type = models.CharField(max_length=255, unique=True)
     afe_type_descrip = models.CharField(max_length=255, null=True, blank=True)
 
@@ -191,3 +191,24 @@ class Src_afe_type(models.Model):
         db_table = 'src_afe_type'
 
 
+# class Src_task_reviewer(models.Model):
+#     ref_task_review_id = models.AutoField(primary_key=True, db_column ='ref_task_review_id' )
+#     task_type = models.CharField(max_length=255)
+#     task_descrip =models.CharField(max_length=255)
+#
+#     _DATABASE = 'default'
+#
+#     class Meta(object):
+#         db_table = 'src_task_reviewer'
+
+
+#
+#
+# class Src_deal_task_auto_reviwer(LogBaseModel):
+#     src_deal_status = models.OneToOneField(Src_tbl_deal_status, blank=True, symmetrical=True,related_name='dt_auto_deal_status')
+#
+#
+#
+#     class Meta:
+#         db_table = 'deal_well_interest_info'
+#         ordering = ('xref_deal_well_id','int_fund__ref_fund_list_id')

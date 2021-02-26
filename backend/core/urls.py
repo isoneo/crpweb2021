@@ -29,4 +29,5 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
     path('docs/', include_docs_urls(title=API_TITLE, description=API_DESCRIPTION)),
     path('user/', include('user_accounts_app.urls')),
+    path('src_ref/',include('source_reference_models_app.urls')),
 ]

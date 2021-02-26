@@ -13,6 +13,8 @@ class Gondor_mgmt(models.Model):
 
     related_user_fund = models.ManyToManyField(Src_fund_list, blank=True, symmetrical=True, related_name='gondor_fund')
     related_user_department = models.ManyToManyField(Src_department_list, blank=True, symmetrical=True,related_name='gondor_department')
+    related_user_task_reviewer = models.ManyToManyField(Src_department_list, blank=True, symmetrical=True,
+                                                     related_name='gondor_task_reviewer')
     history = HistoricalRecords(custom_model_name=lambda x:f'Audit_historical_{x}')
     _DATABASE = 'default'
 
@@ -22,3 +24,5 @@ class Gondor_mgmt(models.Model):
     def gondor_user_details(self):
         return self.rcd_user
 
+    def get_full_name(self):
+        return self.rcd_user.first_name + ' '+ self.rcd_user.last_name

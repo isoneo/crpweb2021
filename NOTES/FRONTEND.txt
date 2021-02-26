@@ -1,0 +1,9 @@
+
+
+
+
+# AXios boot with jwt refresh
+https://forum.quasar-framework.org/topic/5100/how-can-i-pass-the-jwt-token-to-axios-get-request
+
+# Axios refresh issue
+https://forum.quasar-framework.org/topic/5294/axios-interceptor-and-router-push-not-working/8

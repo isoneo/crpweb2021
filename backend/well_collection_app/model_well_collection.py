@@ -59,7 +59,7 @@ class Well_master_info(LogBaseModel):
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='user_master_well_created')
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='user_master_well_updated')
 
-    history = HistoricalRecords()
+    history = HistoricalRecords(custom_model_name=lambda x:f'Audit_historical_{x}')
     _DATABASE = 'default'
 
     class Meta:
@@ -86,7 +86,7 @@ class Well_master_afe_info(LogBaseModel):
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='user_master_well_afe_created')
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='user_master_well_afe_updated')
 
-    history = HistoricalRecords()
+    history = HistoricalRecords(custom_model_name=lambda x:f'Audit_historical_{x}')
     _DATABASE = 'default'
 
     class Meta:
@@ -96,7 +96,7 @@ class Well_master_afe_info(LogBaseModel):
 # Limit to max 4 segments
 class Well_master_prod_fc(LogBaseModel):
     well_prod_fc_id = models.BigAutoField(primary_key=True, db_column='well_prod_fc_id')
-    master_well = models.ForeignKey(well_master_tbl, on_delete=models.CASCADE, db_column='master_well_id')
+    master_well = models.ForeignKey(Well_master_info, on_delete=models.CASCADE, db_column='master_well_id')
     forecast_qualifier = models.CharField(max_length=255, blank=True, null=True)
     product_type =  models.CharField(max_length=25, blank=True, null=True)
     seg_no = models.IntegerField(blank=True, null=True)  # Multi segment to default Hyp to Exp or simple Exp etc
@@ -127,9 +127,12 @@ class Well_master_prod_fc(LogBaseModel):
 
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='user_master_well_prod_fc_created')
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='user_master_well_prod_fc_updated')
-    history = HistoricalRecords()
+    history = HistoricalRecords(custom_model_name=lambda x:f'Audit_historical_{x}')
     _DATABASE = 'default'
 
     class Meta:
         db_table = 'well_master_prod_fc'
         unique_together = ['master_well', 'forecast_qualifier','product_type']
+
+
+# class RS_energy_well_info()
